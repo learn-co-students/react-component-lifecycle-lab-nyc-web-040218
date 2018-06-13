@@ -13,7 +13,17 @@ class App extends React.Component {
     };
   }
 
-  // TODO: componentWillMount()
+  componentWillMount() {
+    this.fetchTweets();
+  }
+
+  componentDidMount() {
+    this.startInterval();
+  }
+
+  componentWillUnmount() {
+    this.cleanUpInterval();
+  }
   // TODO: componentDidMount()
   // TODO: componentWillUnmount()
 
@@ -24,10 +34,11 @@ class App extends React.Component {
   cleanUpInterval = () => clearInterval(this.interval);
 
   fetchTweets = () => {
+    console.log("fetched")
     const newTweets = getTweets();
     this.setState({
       latestTweets: newTweets
-    });
+    }, () => console.log(this.state.latestTweets));
   }
 
   render() {
